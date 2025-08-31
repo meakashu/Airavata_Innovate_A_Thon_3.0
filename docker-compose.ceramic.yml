@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  ceramic:
+    image: ceramicnetwork/ceramic:latest
+    container_name: healthhash-ceramic
+    ports:
+      - "7007:7007"
+    environment:
+      - CERAMIC_NETWORK=mainnet
+      - CERAMIC_ADMIN_DID=did:key:z6MkfZ6SuxNtp6ZkUD3xMZAf6uVnMBuxE6eJuH82RZqNexj9
+      - CERAMIC_ANCHOR_SERVICE_URL=https://cas-clay.3boxlabs.com
+      - CERAMIC_IPFS_PINNING_ENDPOINT=https://ceramic-clay.3boxlabs.com/api/v0/add
+      - CERAMIC_IPFS_PINNING_JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6a2V5Ono2TWtmWjZTdXhOdHA2WmtVRDN4TVpBZjZ1Vm5NQnV4RTZlSnVIOHJaUU5leGo5IiwiaXNzIjoiaHR0cHM6Ly9jZXJhbWljLWNsYXkuM2JveGxhYnMuY29tIiwiaWF0IjoxNjQ5NzQ5NjAwLCJleHAiOjE2ODI5MDMyMDB9.signature
+    volumes:
+      - ceramic_data:/ceramic
+    restart: unless-stopped
+    networks:
+      - healthhash-network
+
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: healthhash-ipfs
+    ports:
+      - "4001:4001"
+      - "5001:5001"
+      - "8080:8080"
+    environment:
+      - IPFS_PROFILE=server
+    volumes:
+      - ipfs_data:/data/ipfs
+    restart: unless-stopped
+    networks:
+      - healthhash-network
+
+  ceramic-admin:
+    image: ceramicnetwork/ceramic-admin:latest
+    container_name: healthhash-ceramic-admin
+    ports:
+      - "7008:7008"
+    environment:
+      - CERAMIC_URL=http://ceramic:7007
+      - ADMIN_DID=did:key:z6MkfZ6SuxNtp6ZkUD3xMZAf6uVnMBuxE6eJuH82RZqNexj9
+    depends_on:
+      - ceramic
+    restart: unless-stopped
+    networks:
+      - healthhash-network
+
+volumes:
+  ceramic_data:
+    driver: local
+  ipfs_data:
+    driver: local
+
+networks:
+  healthhash-network:
+    driver: bridge

@@ -1,0 +1,43 @@
+{
+  "ceramic": {
+    "network": "testnet-clay",
+    "anchor": {
+      "pollingInterval": 60000,
+      "maxPollingTime": 120000
+    },
+    "ipfs": {
+      "mode": "remote",
+      "host": "https://ipfs-clay.3boxlabs.com"
+    },
+    "stateStore": {
+      "mode": "fs",
+      "localDirectory": "./ceramic-data"
+    },
+    "indexing": {
+      "db": "sqlite",
+      "allowQueriesBeforeHistoricalSync": true
+    },
+    "streamCacheLimit": 100,
+    "syncOverride": false,
+    "validateStreams": true,
+    "useCentralizedPeerDiscovery": true,
+    "gatewayHostname": "0.0.0.0",
+    "port": 7007,
+    "corsAllowedOrigins": [
+      "http://localhost:3000",
+      "https://your-domain.com"
+    ],
+    "adminDids": [
+      "did:key:z6MkfZ6S4NVVTEuts8o5xFzRMR8eC6Y1bngoBQFLpXkrEoCX"
+    ]
+  },
+  "logger": {
+    "level": "info",
+    "format": "json"
+  },
+  "metrics": {
+    "enabled": true,
+    "collector": "prometheus",
+    "port": 9090
+  }
+}
