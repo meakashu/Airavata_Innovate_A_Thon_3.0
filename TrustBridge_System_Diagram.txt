@@ -1,0 +1,296 @@
+TRUSTBRIDGE PROTOCOL - SYSTEM ARCHITECTURE DIAGRAM
+====================================================
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    TRUSTBRIDGE PROTOCOL ECOSYSTEM                                              │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                           USER LAYER                                                          │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   PATIENTS  │    │  HOSPITALS  │    │RESEARCHERS  │    │PHARMACEUTICAL│    │  DAO MEMBERS │
+│             │    │  PROVIDERS  │    │             │    │  COMPANIES  │    │             │
+├─────────────┤    ├─────────────┤    ├─────────────┤    ├─────────────┤    ├─────────────┤
+│ • DID Wallet│    │ • EHR API   │    │ • Analytics │    │ • Research  │    │ • Governance│
+│ • QR/NFC    │    │ • Emergency │    │ • Data      │    │ • Clinical  │    │ • Voting    │
+│   Wristband │    │   Access    │    │   Access    │    │   Trials    │    │ • Proposals │
+│ • Consent   │    │ • Record    │    │ • Population│    │ • Drug      │    │ • Treasury  │
+│   Mgmt      │    │   Upload    │    │   Health    │    │   Discovery │    │   Mgmt      │
+│ • Earnings  │    │ • Multi-Sig │    │ • ZK Proofs │    │ • Licensing │    │ • Fee       │
+│   Tracking  │    │   Approval  │    │ • Reports   │    │ • Compliance│    │   Control   │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+       │                   │                   │                   │                   │
+       └───────────────────┼───────────────────┼───────────────────┼───────────────────┘
+                           │                   │                   │
+                           ▼                   ▼                   ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                        FRONTEND LAYER (PWA)                                                   │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Next.js 14+ │ React 18+ │ Chakra UI │ Framer Motion │ WalletConnect │ MetaMask │ Progressive Web App      │
+│  TypeScript  │           │           │               │               │          │ WCAG 2.1 AA Compliant     │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    DECENTRALIZED IDENTITY LAYER                                               │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Ceramic Network│    │   3id-connect   │    │  Self-Sovereign │
+│                 │    │                 │    │     Identity    │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ • DID Resolution│    │ • Wallet Auth   │    │ • Patient Keys  │
+│ • Profile Data  │    │ • DID Creation  │    │ • Key Recovery  │
+│ • Identity      │    │ • Verification  │    │ • Multi-Sig     │
+│   Anchoring     │    │ • Session Mgmt  │    │   Support       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    SMART CONTRACT LAYER (Ethereum/Base)                                       │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│UserRegistry │ │ConsentMgmt  │ │HealthRecord │ │HealthData   │ │PaymentSettle│ │Emergency    │ │Governance   │
+│             │ │             │ │Upload       │ │Audit        │ │             │ │Access       │ │             │
+├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤
+│• Role Mgmt  │ │• Consent    │ │• Record     │ │• Audit Logs │ │• x402       │ │• Break-Glass│ │• DAO Voting │
+│• DID        │ │  Control    │ │  Upload     │ │• Access     │ │  Payments   │ │• Multi-Sig  │ │• Fee        │
+│  Registry   │ │• Permissions│ │• IPFS CID   │ │  Events     │ │• Revenue    │ │• Emergency  │ │  Parameters │
+│• Verification│ │• Revocation │ │• Metadata   │ │• Compliance │ │  Splitting  │ │  Tokens     │ │• Proposals  │
+│• KYC        │ │• Time-Limit │ │• Validation │ │• HIPAA Logs │ │• Auto-Payout│ │• Patient    │ │• Treasury   │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+       │               │               │               │               │               │               │
+       └───────────────┼───────────────┼───────────────┼───────────────┼───────────────┼───────────────┘
+                       │               │               │               │               │
+                       ▼               ▼               ▼               ▼               ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    DECENTRALIZED STORAGE LAYER                                                │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│      IPFS       │    │     Arweave     │    │   The Graph     │    │   Fleek Edge    │
+│                 │    │                 │    │                 │    │                 │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ • Health Records│    │ • Permanent     │    │ • Event Indexing│    │ • Serverless    │
+│ • Encrypted     │    │   Storage       │    │ • Subgraph      │    │   Functions     │
+│   Data          │    │ • Archival      │    │   Queries       │    │ • Notifications │
+│ • Content       │    │   Records       │    │ • Real-time     │    │ • Token Gen     │
+│   Addressing    │    │ • Pay Once      │    │   Updates       │    │ • DID Resolution│
+│ • Distributed   │    │   Store Forever │    │ • Analytics     │    │ • Emergency     │
+│   Replication   │    │ • Backup        │    │   Dashboard     │    │   Access        │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │                       │
+         └───────────────────────┼───────────────────────┼───────────────────────┘
+                                 │                       │
+                                 ▼                       ▼
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    AI & ANALYTICS LAYER                                                      │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Oasis Protocol │    │  Zero-Knowledge │    │  TensorFlow.js  │    │  Population     │
+│                 │    │     Proofs      │    │                 │    │   Health AI     │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ • Secure        │    │ • Privacy       │    │ • Edge          │    │ • Predictive     │
+│   Enclaves      │    │   Preservation  │    │   Inference     │    │   Modeling       │
+│ • AI Compute    │    │ • zk-SNARKs     │    │ • Real-time     │    │ • Risk           │
+│ • Confidential  │    │ • zk-STARKs     │    │   Analytics     │    │   Assessment     │
+│   Computing     │    │ • Proof         │    │ • Clinical      │    │ • Treatment      │
+│ • Trusted       │    │   Verification  │    │   Decision      │    │   Optimization   │
+│   Execution     │    │ • Anonymization │    │   Support       │    │ • Research       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    NOTIFICATION LAYER                                                       │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   libp2p Pub/Sub│    │  W3C Push API   │    │ Service Workers │    │  Real-time      │
+│                 │    │                 │    │                 │    │  Alerts         │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│ • Peer-to-Peer  │    │ • Background    │    │ • Offline       │    │ • Consent        │
+│   Messaging     │    │   Notifications │    │   Queuing       │    │   Requests       │
+│ • Real-time     │    │ • Native OS     │    │ • Push          │    │ • Payment        │
+│   Updates       │    │   Integration   │    │   Delivery      │    │   Confirmations  │
+│ • Decentralized │    │ • VAPID         │    │ • Background    │    │ • Emergency      │
+│   Topics        │    │   Protocol      │    │   Sync          │    │   Access Alerts  │
+│ • End-to-End    │    │ • Cross-Device  │    │ • Cache         │    │ • Governance     │
+│   Encryption    │    │   Sync          │    │   Management    │    │   Updates        │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    BUSINESS MODEL & REVENUE FLOW                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  TOTAL PROJECTED REVENUE: $1.196B ANNUALLY                                                                   │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│Protocol Fees│ │Subscription │ │Data         │ │AI Analytics │ │Compliance   │ │Governance   │
+│             │ │Fees         │ │Monetization │ │Licensing    │ │as-a-Service │ │Token (TBGT) │
+├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤
+│• x402       │ │• Bronze     │ │• Anonymized │ │• Population │ │• HIPAA      │ │• Token      │
+│  Payments   │ │  $50K/year  │ │  Data Sales │ │  Health     │ │  Reporting  │ │  Utility    │
+│• 1-3% Fee   │ │• Silver     │ │• 50% Patient│ │  Insights   │ │• GDPR       │ │• Staking    │
+│• $300M/year │ │  $250K/year │ │  Share      │ │• $10K-100K  │ │  Compliance │ │  Rewards    │
+│• DAO        │ │• Gold       │ │• $200M/year │ │  /month     │ │• $1K-10K    │ │• $200M/year │
+│  Governed   │ │  $500K/year │ │• Research   │ │• $200M/year │ │  /month     │ │• Governance │
+│             │ │• $250M/year │ │  Access     │ │• ZK Proofs  │ │• $46M/year  │ │  Rights     │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    DATA FLOW & PROCESSES                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+HEALTH RECORD UPLOAD FLOW:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Provider  │───▶│  Encrypt    │───▶│   Upload    │───▶│  Record     │───▶│   Patient   │
+│   EHR       │    │   Data      │    │   to IPFS   │    │   Metadata  │    │   Ownership │
+│   System    │    │   Client-   │    │             │    │   On-Chain  │    │   Transfer  │
+│             │    │   Side      │    │             │    │             │    │             │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+
+DATA ACCESS & CONSENT FLOW:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Provider  │───▶│  Request    │───▶│   Patient   │───▶│   Grant/    │───▶│   Time-     │
+│   Requests  │    │   Access    │    │   Receives  │    │   Revoke    │    │   Limited   │
+│   Access    │    │   Smart     │    │   Notification│  │   Consent   │    │   Token     │
+│             │    │   Contract  │    │             │    │             │    │   Generated │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+
+EMERGENCY ACCESS FLOW:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Hospital  │───▶│   Scan      │───▶│   Multi-Sig │───▶│   Break-    │───▶│   1-Hour    │
+│   Emergency │    │   QR/NFC    │    │   Approval  │    │   Glass     │    │   Access    │
+│   Situation │    │   Wristband │    │   Required  │    │   Protocol  │    │   Token     │
+│             │    │             │    │             │    │             │    │             │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+
+PAYMENT & REVENUE FLOW:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Provider  │───▶│   x402      │───▶│   Smart     │───▶│   Auto-     │───▶│   Patient   │
+│   Pays for  │    │   Payment   │    │   Contract  │    │   Split     │    │   Receives  │
+│   Access    │    │   Protocol  │    │   Processing│    │   50/50     │    │   Earnings  │
+│             │    │             │    │             │    │             │    │             │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    SECURITY & COMPLIANCE FRAMEWORK                                           │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Privacy       │    │   HIPAA         │    │   Blockchain    │    │   Zero-Knowledge│
+│   Guarantees    │    │   Compliance    │    │   Security      │    │   Architecture  │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│• No Single      │    │• End-to-End     │    │• Multi-Signature│    │• zk-SNARKs      │
+│  Entity Access  │    │  Encryption     │    │  Wallets        │    │• zk-STARKs      │
+│• Smart Contract │    │• Complete Audit │    │• Smart Contract │    │• Privacy-       │
+│  Enforcement    │    │  Logs           │    │  Audits         │    │  Preserving      │
+│• Patient-       │    │• Role-Based     │    │• Private Key    │    │  Analytics       │
+│  Controlled     │    │  Access Control │    │  Management     │    │• Proof           │
+│  Keys           │    │• Emergency      │    │• Transaction    │    │  Verification    │
+│• Zero-Knowledge │    │  Access Logging │    │  Monitoring     │    │• Anonymization   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    IMPLEMENTATION ROADMAP (16 DAYS)                                          │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│   Phase 1   │ │   Phase 2   │ │   Phase 3   │ │   Phase 4   │ │   Phase 5   │ │   Phase 6   │ │   Phase 7   │ │   Phase 8   │
+│  Days 1-3   │ │  Days 4-5   │ │  Days 6-7   │ │  Days 8-9   │ │ Days 10-11  │ │ Days 12-13  │ │ Days 14-15  │ │   Day 16    │
+├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤
+│• Static PWA │ │• x402       │ │• Audit &    │ │• Emergency  │ │• Notifications│ │• AI &       │ │• DAO        │ │• Demo &     │
+│  Setup      │ │  Payments   │ │  Compliance │ │  Access     │ │• libp2p      │ │  Analytics  │ │  Governance │ │  Testing    │
+│• Wallet DID │ │• Payment    │ │• The Graph  │ │• Multi-Sig  │ │  Pub/Sub     │ │• Oasis      │ │• TBGT Token │ │• End-to-End │
+│  Login      │ │  Settlement │ │  Subgraph   │ │  Protocols  │ │• W3C Push    │ │  Integration│ │• Proposal/  │ │  Scenarios  │
+│• Core Smart │ │• Real-time  │ │• Compliance │ │• Universal  │ │  API         │ │• ZK Proofs  │ │  Vote UI    │ │• Emergency  │
+│  Contracts  │ │  Updates    │ │  Verification│ │  Wristbands │ │• Notification│ │• Privacy-   │ │• Treasury   │ │  Access     │
+│• IPFS       │ │             │ │             │ │• Patient    │ │  Center      │ │  Preserving │ │  Management │ │  Demo       │
+│  Integration│ │             │ │             │ │  Notification│ │             │ │  Insights   │ │             │ │• Research   │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    KEY SUCCESS FACTORS                                                        │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Zero          │    │   Real-time     │    │   Emergency     │    │   DAO           │    │   Comprehensive │
+│   Centralized   │    │   Micropayments │    │   Access        │    │   Governance    │    │   Compliance    │
+│   Data Access   │    │                 │    │   System        │    │                 │    │   Framework     │
+├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤    ├─────────────────┤
+│• Ensures        │    │• Creates        │    │• Addresses      │    │• Ensures        │    │• Enables        │
+│  Patient Trust  │    │  Patient        │    │  Critical Care  │    │  Community-     │    │  Institutional  │
+│• No Platform    │    │  Incentives     │    │  Needs          │    │  Driven         │    │  Adoption       │
+│  Owner Access   │    │• Fair Revenue   │    │• Multi-Signature│    │  Development    │    │• HIPAA/GDPR     │
+│• Smart Contract │    │  Sharing        │    │  Protocols      │    │• Transparent    │    │  Compliant      │
+│  Enforcement    │    │• DeFi           │    │• Universal      │    │  Decision       │    │• Audit Ready    │
+│• Complete       │    │  Integration    │    │  Wristbands     │    │  Making         │    │• Regulatory     │
+│  Transparency   │    │• Withdrawal     │    │• Time-Limited   │    │• Fee Parameter  │    │  Framework      │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    TARGET MARKETS & ADOPTION STRATEGY                                         │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│Healthcare   │ │Patients     │ │Pharmaceutical│ │Health       │ │Insurance    │
+│Providers    │ │             │ │Companies     │ │Researchers  │ │Companies    │
+├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤
+│• Hospitals  │ │• Individual │ │• Research    │ │• Academic   │ │• Risk       │
+│• Clinics    │ │  Health     │ │  Data Access │ │  Research   │ │  Assessment │
+│• Private    │ │  Data       │ │• Clinical    │ │• Clinical   │ │• Claims     │
+│  Practices  │ │  Owners     │ │  Trials      │ │  Trials     │ │  Processing │
+│• EHR        │ │• Consent    │ │• Drug        │ │• Population │ │• Fraud      │
+│  Integration│ │  Management │ │  Discovery   │ │  Health     │ │  Detection  │
+│• Emergency  │ │• Earnings   │ │• Licensing   │ │• Analytics  │ │• Compliance │
+│  Access     │ │  Tracking   │ │• Compliance  │ │• Reports    │ │  Reporting  │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+
+ADOPTION TIMELINE:
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│  Months     │ │  Months     │ │  Months     │ │  Months     │
+│   1-3       │ │   4-6       │ │   7-12      │ │  13-24      │
+├─────────────┤ ├─────────────┤ ├─────────────┤ ├─────────────┤
+│• Pilot with │ │• Launch     │ │• Scale to   │ │• Universal  │
+│  5 Hospitals│ │  TBGT Token │ │  500        │ │  Emergency  │
+│• Integrate  │ │• Onboard    │ │  Providers  │ │  Access     │
+│  Ceramic    │ │  Research   │ │• Integrate  │ │  Adoption   │
+│• Deploy     │ │  Partners   │ │  Additional │ │• Global     │
+│  Emergency  │ │• Deploy     │ │  EHR        │ │  Expansion  │
+│  Access     │ │  Governance │ │  Standards  │ │• Advanced   │
+│  System     │ │  DAO        │ │• Advanced   │ │  AI         │
+│             │ │             │ │  Analytics  │ │  Features   │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    CONCLUSION                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+TrustBridge Protocol represents a paradigm shift in healthcare data management by:
+
+1. SOLVING REAL PROBLEMS: Addresses the $100+ billion healthcare data inefficiency crisis
+2. EMPOWERING PATIENTS: Gives patients complete ownership and control of their health data  
+3. ENABLING INNOVATION: Provides secure, privacy-preserving data access for research
+4. ENSURING COMPLIANCE: Maintains HIPAA/GDPR compliance through blockchain transparency
+5. CREATING VALUE: Generates multiple revenue streams while fairly compensating patients
+
+The platform's fully decentralized architecture, patient-centric design, and comprehensive feature set 
+position it as the future of healthcare data exchange, solving real-world problems while creating 
+sustainable value for all stakeholders.
+
+KEY INNOVATION: Zero centralized data access - no single entity (including platform owners) 
+can access patient health data without explicit consent.
+
+TOTAL PROJECTED REVENUE: $1.196B annually across 6 revenue streams with DAO governance.
+
+TECHNOLOGY STACK: Blockchain + IPFS + AI + Zero-knowledge proofs + Decentralized identity + 
+Real-time micropayments + Emergency access protocols.
